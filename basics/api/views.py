@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from rest_framework.filters import SearchFilter, OrderingFilter
 from django.contrib.auth.models import User
 
 from basics.models import Todo
@@ -75,8 +77,29 @@ def delete_todo(request, id):
         return Response(data={ "message": "Operation todo delete failed" }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+class CustomPagination(PageNumberPagination):
+    page_size = 1
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
 class TodoList(generics.ListAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     authentication_classes = [TokenAuthentication]    
     permission_classes = [IsAuthenticated]
+    # if you want to override default pagination u can use below
+    # by default pagination setted in settings is PageNumberPagination now i override to LimitOffsetPagination
+    # pagination_class = LimitOffsetPagination
+
+    # here custom class pagination
+    # pagination_class = CustomPagination
+
+
+
+class TodoListWithSearchFilter(generics.ListAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['title', 'status', 'description', 'user__username']

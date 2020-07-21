@@ -12,5 +12,6 @@ urlpatterns = [
     path("<int:id>/delete", views.delete_todo, name="delete_todo"),
 
     # generic class based view for api
-    path("class/todos", views.TodoList.as_view(), name="get_all_todo_v2")
+    path("class/todos", views.TodoList.as_view(), name="get_all_todo_v2"),
+    path("class/todos/filter", views.TodoListWithSearchFilter.as_view(), name="todo_with_filter")
 ]

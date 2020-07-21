@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<h1>Todo delete</h1>
+
+<li>Title: {{todo.title}}</li>
+<li>Description: {{ todo.description }}</li>
+<li>status: {{todo.status}}</li>
+<li>completed: {{todo.is_completed}}</li>
+<li>User: {{todo.user}}</li>
+
+<form method="POST">
+    {% csrf_token %}
+
+    Are you sure do you want to delete this
+
+    <input type="submit" vlaue="yes" />
+    <a href="/todos/v2">No</a>
+</form>
+
+{% endblock %}
+

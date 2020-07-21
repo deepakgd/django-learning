@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1> Edit todo</h1>
+
+<form action="/todo/{{id}}/update" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+</form>
+
+{% endblock %}

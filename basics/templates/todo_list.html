@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<a href="/todo/create"><button>Create</button></a>
+<table border="1">
+    <tr>
+        <th>S.No</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Task Completed</th>
+        <th>Assigned To</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    {% for todo in todos %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.status|upper }}</td>
+            <td>{{ todo.is_completed }}</td>
+            <td>{{ todo.user }}</td>
+            <td><a href="/todo/{{todo.id}}">Edit</a></td>
+            <td><a href="/todo/{{todo.id}}/delete">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

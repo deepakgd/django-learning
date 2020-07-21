@@ -2,6 +2,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
 
 from basics.models import Todo
@@ -76,5 +77,6 @@ def delete_todo(request, id):
 
 class TodoList(generics.ListAPIView):
     queryset = Todo.objects.all()
-    serializer_class = TodoSerializer    
+    serializer_class = TodoSerializer
+    authentication_classes = [TokenAuthentication]    
     permission_classes = [IsAuthenticated]

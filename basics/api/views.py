@@ -28,10 +28,11 @@ def get_all_todo(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_todo(request):
 
     # currently hard coded becuase no auth token feature implemented
-    user = User.objects.get(pk=1)
+    user = request.user
     todo = Todo(user=user)
 
     serializer = TodoSerializer(todo, data=request.data)
@@ -42,6 +43,7 @@ def create_todo(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def update_todo(request, id):
 
     try:
@@ -58,6 +60,7 @@ def update_todo(request, id):
 
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete_todo(request, id):
     try:
         todo = Todo.objects.get(pk=id)

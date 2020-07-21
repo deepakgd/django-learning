@@ -1,6 +1,7 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 
 from basics.models import Todo
@@ -17,9 +18,11 @@ def get_todo(request, id):
     serializer = TodoSerializer(todo)
     return Response(serializer.data)
 
-
+# only authorized user can access this
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_all_todo(request):
+    print(request.user) # it contains user data
     todos = Todo.objects.all()
     serializer = TodoSerializer(todos, many=True)
     return Response(serializer.data)
@@ -71,3 +74,4 @@ def delete_todo(request, id):
 class TodoList(generics.ListAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer    
+    permission_classes = [IsAuthenticated]

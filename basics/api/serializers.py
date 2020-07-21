@@ -13,3 +13,10 @@ class TodoSerializer(serializers.ModelSerializer):
     def get_username_from_user(self, todo): 
         username = todo.user.username
         return username
+
+
+class TodoSerializerUpdate(serializers.ModelSerializer):
+
+    class Meta:
+        model = Todo
+        fields = ["id", "title", "description", "status", "is_completed"]

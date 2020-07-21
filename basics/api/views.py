@@ -8,7 +8,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django.contrib.auth.models import User
 
 from basics.models import Todo
-from basics.api.serializers import TodoSerializer
+from basics.api.serializers import TodoSerializer, TodoSerializerUpdate
 
 
 @api_view(['GET'])
@@ -103,3 +103,30 @@ class TodoListWithSearchFilter(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'status', 'description', 'user__username']
+
+
+class TodoCreate(generics.CreateAPIView):
+    model = Todo
+    serializer_class = TodoSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        todo = Todo(user=user)
+        serializer = TodoSerializer(todo, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({ 'message': "Todo created successfully" })
+
+
+class TodoUpdate(generics.UpdateAPIView):
+    model = Todo
+    serializer_class = TodoSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        id = self.request.data.get('id')
+        return Todo.objects.get(pk=id)

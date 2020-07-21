@@ -13,5 +13,7 @@ urlpatterns = [
 
     # generic class based view for api
     path("class/todos", views.TodoList.as_view(), name="get_all_todo_v2"),
-    path("class/todos/filter", views.TodoListWithSearchFilter.as_view(), name="todo_with_filter")
+    path("class/todos/filter", views.TodoListWithSearchFilter.as_view(), name="todo_with_filter"),
+    path("class/todo/create", views.TodoCreate.as_view(), name="create_class_todo"),
+    path("class/todo/update", views.TodoUpdate.as_view(), name="update_class_todo")
 ]

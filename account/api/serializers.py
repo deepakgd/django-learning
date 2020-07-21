@@ -38,3 +38,26 @@ class UserSerializer(serializers.ModelSerializer):
     # this will trigger if no create method in CreateUser class otherwise it will trigger that one
     # def create(self, *args, **kwargs):
         # return User.objects.create_user(email=self.validated_data['email'], username=self.validated_data['username'], password=self.validated_data['password'], first_name=self.validated_data['first_name'], last_name=self.validated_data['last_name'])
+
+
+# update only first name, last name and password
+class UserProfileSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(style={ 'input-type': 'password' }, write_only=True)
+    
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name", "password", "confirm_password"]
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
+
+     # all field validation
+    def validate(self, data):
+        password = data['password']
+        confirm_password = data.get('confirm_password')
+
+        if password != confirm_password:
+            raise serializers.ValidationError("Password must match with Confirm password")
+        
+        return data

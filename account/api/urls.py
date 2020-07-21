@@ -10,5 +10,6 @@ urlpatterns = [
     path("register", views.create_user, name="create_user"),
     path("register/class", views.CreateUser.as_view(), name="create_user_class"),
     path("login", obtain_auth_token, name="login"),
-    path('customlogin', views.CustomLogin.as_view(), name="customlogin")
+    path('customlogin', views.CustomLogin.as_view(), name="customlogin"),
+    path('update', views.UpdateProfile.as_view(), name="update_profile")
 ]

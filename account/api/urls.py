@@ -11,5 +11,6 @@ urlpatterns = [
     path("register/class", views.CreateUser.as_view(), name="create_user_class"),
     path("login", obtain_auth_token, name="login"),
     path('customlogin', views.CustomLogin.as_view(), name="customlogin"),
-    path('update', views.UpdateProfile.as_view(), name="update_profile")
+    path('update', views.UpdateProfile.as_view(), name="update_profile"),
+    path('update/v2', views.updateProfile, name="update_profile")
 ]

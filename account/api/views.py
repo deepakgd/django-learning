@@ -79,9 +79,18 @@ class UpdateProfile(generics.UpdateAPIView):
         user.save()
         return Response({ 'message': "Profile updated successfully" })
 
-
-    
-
+# same above is done in functional method
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateProfile(request):
+    user = request.user
+    serializer = UserProfileSerializer(user, data=request.data)
+    serializer.is_valid(raise_exception=True)
+    user.set_password(request.data['password'])
+    user.first_name = request.data.get('first_name')
+    user.last_name = request.data.get('last_name')
+    user.save()
+    return Response({ 'message': 'Profile updated successfully' })
     
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):

@@ -9,7 +9,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.views import APIView
+from django.contrib.auth import authenticate
 from account.api.serializers import UserSerializer, UserProfileSerializer
 
 class UserList(generics.ListAPIView):
@@ -59,6 +60,33 @@ class CustomLogin(ObtainAuthToken):
             'email': user.email
         })
 
+
+
+class CustomObtainAuthTokenView(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request):
+        context = {}
+        response_status = None
+        username = request.data.get('username')
+        password = request.data.get('password')
+        account = authenticate(username=username, password=password)
+        print(account)
+        if account:
+            token, created = Token.objects.get_or_create(user=account)
+            context['success'] = True
+            context['message'] = 'Login success'
+            context['email'] = account.email
+            context['username'] = account.username
+            context['token'] = token.key
+            response_status = status.HTTP_200_OK
+        else:
+            context['success'] = False
+            context['message'] = 'Authentication failed. Invalid username or password'
+            response_status = status.HTTP_400_BAD_REQUEST
+        return Response(data=context, status=response_status)
 
 class UpdateProfile(generics.UpdateAPIView):
     model = User

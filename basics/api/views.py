@@ -94,6 +94,9 @@ class TodoList(generics.ListAPIView):
     # here custom class pagination
     # pagination_class = CustomPagination
 
+    # if you dont want pagination use like below
+    # pagination_class = None
+
 
 
 class TodoListWithSearchFilter(generics.ListAPIView):

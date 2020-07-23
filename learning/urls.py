@@ -25,7 +25,8 @@ urlpatterns = [
 
     # rest api
     path('api/todo/', include('basics.api.urls', 'basics_api')),
-    path('api/account/', include('account.api.urls', 'account_api'))
+    path('api/account/', include('account.api.urls', 'account_api')),
+    path('api/blog/', include('blogs.api.urls', 'blogs_api'))
 ]
 
 

@@ -15,7 +15,9 @@
 </tr>
 <tr>
     <td>Image</td>
-    <td><img src="{{ blog.image.url }}"></td>
+    <td>
+       {% if blog.image %} <img src="{{ blog.image.url }}"> {% endif %}
+    </td>
 </tr>
 <tr>
     <td>Active</td>

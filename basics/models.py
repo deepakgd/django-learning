@@ -31,4 +31,3 @@ class Todo(models.Model):
     # The __str__ method is useful for a string representation of the object, either when someone codes in str(your_object), or even when someone might do print(your_object). The __str__ method is one that should be the most human-readable possible, yet also descriptive of that exact object.
     # def __str__(self):
     #     return self.title
-        

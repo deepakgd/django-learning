@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'basics.apps.BasicsConfig',
-    'account.apps.AccountConfig'
+    'account.apps.AccountConfig',
+    'blogs.apps.BlogsConfig'
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+# Media files location (file upload location)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

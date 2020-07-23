@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+<table border="1">
+    <tr>
+        <th>S.No</th>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Author</th>
+        <th>Date published</th>
+        <th>Active</th>
+    </tr>
+    {% for blog in blogs %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ blog.image }}</td>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.author }}</td>
+            <td>{{ blog.description }}</td>
+            <td>{{ blog.created_at }}</td>
+            <td>{{ blog.active }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

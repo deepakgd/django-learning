@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('basics.urls')),
     path('admin/', admin.site.urls),
+    path('blogs/', include('blogs.urls')),
 
     # rest api
     path('api/todo/', include('basics.api.urls', 'basics_api')),
     path('api/account/', include('account.api.urls', 'account_api'))
 ]
+
+
+# add media source - to access uploaded file 
+urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -22,7 +22,7 @@ urlpatterns = [
     path('', include('basics.urls')),
     path('admin/', admin.site.urls),
     path('blogs/', include('blogs.urls')),
-    path('logger', include('loggerapp.urls')),
+    path('logger/', include('loggerapp.urls')),
 
     # rest api
     path('api/todo/', include('basics.api.urls', 'basics_api')),

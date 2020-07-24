@@ -13,3 +13,13 @@ def loggertest(request):
     logger.debug("debug logger")
     logger.warning("warning logger")
     return HttpResponse("Please check your server console")
+
+
+def awslogger(request):
+    logger = logging.getLogger('awslogger')
+    logger.error("Error logger")
+    logger.info("Info logger")
+    logger.critical("critical logger")
+    logger.debug("debug logger")
+    logger.warning("warning logger")
+    return HttpResponse("Please check your server console")

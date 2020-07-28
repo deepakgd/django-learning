@@ -23,11 +23,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blogs/', include('blogs.urls')),
     path('logger/', include('loggerapp.urls')),
+    path('game/', include('game.urls')),
 
     # rest api
     path('api/todo/', include('basics.api.urls', 'basics_api')),
     path('api/account/', include('account.api.urls', 'account_api')),
-    path('api/blog/', include('blogs.api.urls', 'blogs_api'))
+    path('api/blog/', include('blogs.api.urls', 'blogs_api')),
+    path('api/game/', include('game.api.urls', 'game_api'))
 ]
 
 

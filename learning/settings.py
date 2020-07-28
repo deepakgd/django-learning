@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'basics.apps.BasicsConfig',
     'account.apps.AccountConfig',
     'blogs.apps.BlogsConfig',
-    'loggerapp.apps.LoggerappConfig'
+    'loggerapp.apps.LoggerappConfig',
+    'game.apps.GameConfig'
 ]
 
 MIDDLEWARE = [
@@ -213,60 +214,60 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 boto3_session = Session(aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_S3_REGION_NAME)
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        # format for cloudwatch
-        'aws': {
-            # you can add specific format for aws here
-            # if you want to change format, you can read:
-            #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
-            'format': u"%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
-            'datefmt': "%Y-%m-%d %H:%M:%S"
-        },
-        # format for console
-        'console': {
-            'format': '%(name)-12s %(levelname)-8s %(message)s'
-        },
-        # local file logger
-        'file': {
-            'format': u"%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
-        }
-    },
-    'handlers': {
-        # console logger handler
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console'
-        },
-        # watchtower cloud watch logger handler
-        'watchtower': {
-            'level': 'DEBUG',
-            'class': 'watchtower.CloudWatchLogHandler',
-            'boto3_session': boto3_session,
-            'log_group': 'MyLogGroupV2',
-            'stream_name': 'MyStreamName',
-            'formatter': 'aws', # use custom format
-        },
-        # local file logger handler
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'formatter': 'file',
-            'filename': './debug.log'
-        }
-    },
-    'loggers': {
-        'awslogger': {
-            'level': 'DEBUG',
-            'handlers': ['console', 'watchtower'],
-            'propagate': False,
-        },
-        '': {
-            'level': 'DEBUG',
-            'handlers': ['console', 'file'],
-            'propagate': False,
-        }
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         # format for cloudwatch
+#         'aws': {
+#             # you can add specific format for aws here
+#             # if you want to change format, you can read:
+#             #    https://stackoverflow.com/questions/533048/how-to-log-source-file-name-and-line-number-in-python/44401529
+#             'format': u"%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
+#             'datefmt': "%Y-%m-%d %H:%M:%S"
+#         },
+#         # format for console
+#         'console': {
+#             'format': '%(name)-12s %(levelname)-8s %(message)s'
+#         },
+#         # local file logger
+#         'file': {
+#             'format': u"%(asctime)s [%(levelname)-8s] %(message)s [%(pathname)s:%(lineno)d]",
+#         }
+#     },
+#     'handlers': {
+#         # console logger handler
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'console'
+#         },
+#         # watchtower cloud watch logger handler
+#         'watchtower': {
+#             'level': 'DEBUG',
+#             'class': 'watchtower.CloudWatchLogHandler',
+#             'boto3_session': boto3_session,
+#             'log_group': 'MyLogGroupV2',
+#             'stream_name': 'MyStreamName',
+#             'formatter': 'aws', # use custom format
+#         },
+#         # local file logger handler
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'formatter': 'file',
+#             'filename': './debug.log'
+#         }
+#     },
+#     'loggers': {
+#         'awslogger': {
+#             'level': 'DEBUG',
+#             'handlers': ['console', 'watchtower'],
+#             'propagate': False,
+#         },
+#         '': {
+#             'level': 'DEBUG',
+#             'handlers': ['console', 'file'],
+#             'propagate': False,
+#         }
+#     },
+# }

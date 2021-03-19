@@ -9,7 +9,7 @@ libxml2-python==2.9.10
 mccabe==0.6.1
 mysql-connector==2.2.9
 mysqlclient==1.4.6
-Pillow==7.1.1
+Pillow==8.1.1
 pylint==2.4.4
 pytz==2019.3
 six==1.14.0
